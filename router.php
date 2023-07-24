@@ -11,13 +11,16 @@ function route(string $url, Closure $callback): array
 function dispatch(string $method, string $url, array $routes): void
 {
     $url = trim($url, '/');
-    if (!array_key_exists($url, $routes[$method])) {
+
+    $url = explode('?', $url);
+
+    if (!array_key_exists($url[0], $routes[$method])) {
         echo "Ошибка 404. Такой страницы не существует!";
 
         return;
     }
 
-    $callback = $routes[$method][$url]['callback'];
+    $callback = $routes[$method][$url[0]]['callback'];
 
     echo call_user_func($callback);
 }
