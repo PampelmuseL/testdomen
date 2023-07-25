@@ -1,20 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Форма</title>
-</head>
+function createGet(): void
+{
+    include "html/create.php";
+}
 
-<body>
-    <form action="" method="POST">
-        <div>Название:<input name="title"></div>
-        <br>
-        <div>Описание товара:<textarea name="description" class="input_block"></textarea></div>
-        <br>
-        <button type="submit">Добавить</button>
-    </form>
-</body>
-
-</html>
+function createPost(): void
+{
+    include "db.php";
+    $title = $_POST['title'];
+    $description = $_POST['description'];
+    $date = date('Y-m-d');
+    $mysql->query("INSERT INTO shop_table VALUES (NULL, '$title', '$description', '$date')");
+    $mysql->close();
+    header("Location: http://testdomen.com/");
+}
