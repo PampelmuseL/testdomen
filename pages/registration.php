@@ -2,15 +2,14 @@
 session_start();
 function registration($method)
 {
+    if (array_key_exists('id', $_SESSION)) {
+        echo "У вас уже есть аккаунт с id=$_SESSION[id]";
+        exit();
+    }
     if ($method == 'GET') {
-        if (array_key_exists('id', $_SESSION)) {
-            echo "У вас уже есть аккаунт с id=$_SESSION[id]";
-            exit();
-        }
         include 'html/registration.php';
     }
     if ($method == 'POST') {
-
         if (!(array_key_exists('email', $_POST)) || !(array_key_exists('password', $_POST))) {
             registration('GET');
             exit();
