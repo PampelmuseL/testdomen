@@ -37,6 +37,17 @@ $routes['POST'] += route('/registration', function (): void {
     registration('POST');
 });
 
+$routes['GET'] += route('/login', function (): void {
+    include "pages/login.php";
+    login('GET');
+});
+
+$routes['POST'] += route('/login', function (): void {
+    include "pages/login.php";
+    login('POST');
+});
+
+
 
 $url = $_SERVER['REQUEST_URI'];
 $method = isset($_POST['method']) ? $_POST['method'] : $_SERVER['REQUEST_METHOD'];
