@@ -3,8 +3,12 @@
 if (!$_GET['id']) {
     header("Location: http://testdomen.com");
 }
+if (!($id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT))) {
+    http_response_code(404);
+    echo "Ошибка 404! Страница не найдена!";
+    exit();
+}
 
-$id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 include "db.php";
 $mysql = $mysql->query("SELECT * FROM shop_table WHERE id='$id'");
 $product = $mysql->fetch_assoc();
