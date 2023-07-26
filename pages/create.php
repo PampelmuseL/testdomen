@@ -7,11 +7,13 @@ function createGet(): void
 
 function createPost(): void
 {
+    if (!(array_key_exists('title', $_POST)) || !(array_key_exists('description', $_POST))) {
+        createGet();
+        exit();
+    }
     include "db.php";
-    $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
-    $description = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING);
+    $title = htmlspecialchars($_POST['title']);
+    $description = htmlspecialchars($_POST['description']);
     $date = date('Y-m-d');
     $mysql->query("INSERT INTO shop_table VALUES (NULL, '$title', '$description', '$date')");
     $mysql->close();
