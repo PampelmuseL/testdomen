@@ -3,7 +3,8 @@
 if (!$_GET['id']) {
     header("Location: http://testdomen.com");
 }
-$id = $_GET['id'];
+
+$id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 include "db.php";
 $mysql = $mysql->query("SELECT * FROM shop_table WHERE id='$id'");
 $product = $mysql->fetch_assoc();

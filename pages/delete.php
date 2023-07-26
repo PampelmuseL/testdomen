@@ -3,7 +3,7 @@
 if (!$_POST['id']) {
     header("Location: http://testdomen.com");
 }
-$id = $_POST['id'];
+$id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
 include "db.php";
 $mysql->query("DELETE FROM shop_table WHERE id='$id'");
 $mysql->close();
