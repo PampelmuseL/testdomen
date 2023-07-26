@@ -1,8 +1,12 @@
 <?php
-
+session_start();
 function registration($method)
 {
     if ($method == 'GET') {
+        if (array_key_exists('id', $_SESSION)) {
+            echo "У вас уже есть аккаунт с id=$_SESSION[id]";
+            exit();
+        }
         include 'html/registration.php';
     }
     if ($method == 'POST') {
@@ -17,6 +21,7 @@ function registration($method)
         $date = date('Y-m-d');
         if ($mysql->query("INSERT INTO users VALUES (NULL, '$email', '$password', '$date')")) {
             echo "Аккаунт успешно создан!";
+            $_SESSION['id'] = $mysql->insert_id;
         }
         $mysql->close();
     }
